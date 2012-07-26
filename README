@@ -1,0 +1,11 @@
+mEAT - mein Einkaufs-Abrechnngs-Tool
+
+This tool should work similiar to a housholding book. You can see all your outgoings and debts to other people.
+But you enter every bill with all its items and then add people to this items. So you can make an accounting between many people.
+
+My first specification is written in german and could be translated but right now i don't see the need of this.
+
+LICENSE:
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
