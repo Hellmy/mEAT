@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="de.zeunerds.meat.server.usermanagement.dao">
+<class name="Account">
+<id name="pkey">
+<generator class="native"/>
+</id>
+<property name="password"/>
+<property name="name"/>
+<property name="firstname"/>
+<property name="username"/>
+</class>
+</hibernate-mapping>

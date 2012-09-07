@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="de.zeunerds.meat.server.usermanagement.dao">
+<class name="Person">
+<id name="pkey">
+<generator class="native"/>
+</id>
+<many-to-one name="accountMappingFkey" class="Account" column="account_mapping_fkey" />
+<property column="name" name="name"/>
+<many-to-one name="creatorFkey" class="Account" column="creator_fkey" />
+</class>
+</hibernate-mapping>
