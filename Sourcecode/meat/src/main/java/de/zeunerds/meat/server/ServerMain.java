@@ -6,10 +6,15 @@ import java.rmi.registry.Registry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.zeunerds.meat.server.usermanagement.access.AccountAccess;
 import de.zeunerds.meat.server.usermanagement.access.AccountAccessImpl;
 
 public class ServerMain {
+	
+	private Logger mLogger = LoggerFactory.getLogger(this.getClass());
 	
 	public ServerMain() {
 		try
@@ -29,14 +34,14 @@ public class ServerMain {
 	  }
 
 	private void register() throws RemoteException {
-		AccountAccessImpl adder = new AccountAccessImpl();
-	    AccountAccess stub = (AccountAccess) UnicastRemoteObject.exportObject( adder, 0 );
+		AccountAccessImpl accountAccess = new AccountAccessImpl();
+	    AccountAccess stub = (AccountAccess) UnicastRemoteObject.exportObject( accountAccess, 0 );
 	    RemoteServer.setLog( System.out );
-
-	    Registry registry = LocateRegistry.getRegistry();
-	    registry.rebind( "AccountAccess", stub );	
 	    
-	    System.out.println( "Adder angemeldet" );
+	    Registry registry = LocateRegistry.getRegistry();
+	    registry.rebind( "AccountAccess", stub );
+	    
+	    mLogger.info( "AccountAccess angemeldet");
 
 	}
 	  

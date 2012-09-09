@@ -10,17 +10,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.zeunerds.meat.server.HibernateUtils;
+import de.zeunerds.meat.server.exception.FunctionalException;
+import de.zeunerds.meat.server.exception.FunctionalText;
 
 public class UsermanagementService {
 
 	private Logger mLogger = LoggerFactory.getLogger(this.getClass());
+	
+	private UsermanagementFunctions mUserFunctions = new UsermanagementFunctions();
 
 	public UsermanagementService() {
 
 	}
 
 	public Account createAccount(String username, String password, String name,
-			String firstname) {
+			String firstname) throws FunctionalException {
 		mLogger.trace("Method begin...");
 
 		Account account = new Account(username, password, name, firstname);
@@ -29,8 +33,15 @@ public class UsermanagementService {
 		try {
 			session = HibernateUtils.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			session.save(account);
-			transaction.commit();
+			if(mUserFunctions.loadAccount(username, session) == null){
+				session.save(account);
+				transaction.commit();
+			}
+			else{
+				transaction.rollback();
+				throw new FunctionalException(FunctionalText.DOUBLE_USERNAME);
+			}
+			
 		} catch (HibernateException e) {
 			mLogger.error("Catched: " + e);
 			if (transaction != null) {
@@ -55,12 +66,7 @@ public class UsermanagementService {
 		try {
 			session = HibernateUtils.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("from Account where username='"
-					+ username + "'");
-			mLogger.trace("Count Accounts: " + query.list().size());
-			if (query.list().size() > 0) {
-				account = (Account) query.list().get(0);
-			}
+			account = mUserFunctions.loadAccount(username, session);
 			transaction.commit();
 		} catch (HibernateException e) {
 			mLogger.error("Catched: " + e);

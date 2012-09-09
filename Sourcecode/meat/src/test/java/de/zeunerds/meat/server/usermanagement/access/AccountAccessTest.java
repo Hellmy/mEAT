@@ -1,5 +1,7 @@
 package de.zeunerds.meat.server.usermanagement.access;
 
+import java.rmi.RemoteException;
+
 import org.junit.Test;
 
 import de.zeunerds.meat.server.HibernateUtils;
@@ -21,11 +23,18 @@ public class AccountAccessTest extends TestCase {
 	
 	@Test
 	public void testCreateAccount() {
-		Account account = mAccImpl.createAccount(USERNAME, PASSWORD, NAME, FIRSTNAME);
-		assertEquals(USERNAME, account.getUsername());
-		assertEquals(PASSWORD, account.getPassword());
-		assertEquals(NAME, account.getName());
-		assertEquals(FIRSTNAME, account.getFirstname());
+		Account account = null;
+		try {
+			account = mAccImpl.createAccount(USERNAME, PASSWORD, NAME, FIRSTNAME);
+			assertEquals(USERNAME, account.getUsername());
+			assertEquals(PASSWORD, account.getPassword());
+			assertEquals(NAME, account.getName());
+			assertEquals(FIRSTNAME, account.getFirstname());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail(e.toString());
+		}
 	}
 	
 	@Test
