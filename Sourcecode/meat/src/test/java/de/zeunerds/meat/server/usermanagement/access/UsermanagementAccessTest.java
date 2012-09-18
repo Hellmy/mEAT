@@ -9,9 +9,9 @@ import de.zeunerds.meat.server.usermanagement.dao.Account;
 
 import junit.framework.TestCase;
 
-public class AccountAccessTest extends TestCase {
+public class UsermanagementAccessTest extends TestCase {
 	
-	private AccountAccessImpl mAccImpl = new AccountAccessImpl();
+	private UsermanagementAccessImpl mAccImpl = new UsermanagementAccessImpl();
 	private final String USERNAME = "testor";
 	private final String PASSWORD = "test";
 	private final String NAME = "test";

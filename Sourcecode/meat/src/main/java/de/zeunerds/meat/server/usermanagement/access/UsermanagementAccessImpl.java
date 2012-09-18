@@ -1,31 +1,27 @@
 package de.zeunerds.meat.server.usermanagement.access;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.UserTransaction;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.zeunerds.meat.server.HibernateUtils;
 import de.zeunerds.meat.server.exception.FunctionalException;
 import de.zeunerds.meat.server.exception.FunctionalText;
 import de.zeunerds.meat.server.usermanagement.dao.Account;
 import de.zeunerds.meat.server.usermanagement.dao.Person;
-import de.zeunerds.meat.server.usermanagement.logic.AccountLogic;
+import de.zeunerds.meat.server.usermanagement.logic.UsermanagementLogic;
+import de.zeunerds.meat.shared.usermanagement.UsermanagementAccess;
 
-public class AccountAccessImpl implements AccountAccess {
+public class UsermanagementAccessImpl implements UsermanagementAccess {
 
 	private Logger mLogger = LoggerFactory.getLogger(this.getClass());
-	private AccountLogic mAccountLogic = new AccountLogic();
+	private UsermanagementLogic mAccountLogic = new UsermanagementLogic();
 	Session mSession = null;
 
-	public AccountAccessImpl() {
+	public UsermanagementAccessImpl() {
 
 	}
 
@@ -69,9 +65,21 @@ public class AccountAccessImpl implements AccountAccess {
 
 	}
 
-	public List<Person> getPersonen(String accountUsername) {
+	public List<Person> getPersons(String accountUsername) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public List<Account> searchAccount(String username) {
+		List<Account> accountList = new ArrayList<Account>();
+		
+		
+		return accountList;
+	}
+
+	public void saveAccount(Account account) throws RemoteException {
+		mAccountLogic.saveAccount(account);
+		
 	}
 
 }

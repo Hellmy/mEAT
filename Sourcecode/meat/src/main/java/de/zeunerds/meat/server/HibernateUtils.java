@@ -14,7 +14,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.zeunerds.meat.server.usermanagement.logic.AccountLogic;
+import de.zeunerds.meat.server.usermanagement.logic.UsermanagementLogic;
 
 public class HibernateUtils {
 

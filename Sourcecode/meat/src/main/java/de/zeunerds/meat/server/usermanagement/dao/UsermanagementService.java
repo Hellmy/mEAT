@@ -83,5 +83,31 @@ public class UsermanagementService {
 		mLogger.trace("Method end...");
 		return account;
 	}
+	
+	public boolean saveAccount(Account account) {
+		mLogger.trace("Method begin...");
+
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = HibernateUtils.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.update(account);
+			transaction.commit();
+		} catch (HibernateException e) {
+			mLogger.error("Catched: " + e);
+			if (transaction != null) {
+				transaction.rollback();
+				throw e;
+			}
+		}
+		finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		mLogger.trace("Method end...");
+		return true;
+	}
 
 }

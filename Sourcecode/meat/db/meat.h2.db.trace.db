@@ -1,0 +1,38 @@
+09-03 12:49:38 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACCOUNT" not found; SQL statement:
+Select * from Account [42102-168]
+09-03 12:49:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "TERMIN" not found; SQL statement:
+Select * from Termin [42102-168]
+09-03 12:49:55 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "TESTOR"; SQL statement:
+Create Table account(int testor) [50004-168]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3654)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3517)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5208)
+	at org.h2.command.Parser.parseCreate(Parser.java:3806)
+	at org.h2.command.Parser.parsePrepared(Parser.java:324)
+	at org.h2.command.Parser.parse(Parser.java:279)
+	at org.h2.command.Parser.parse(Parser.java:251)
+	at org.h2.command.Parser.prepareCommand(Parser.java:217)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:364)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1109)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at net.sourceforge.sqlexplorer.dbproduct.AbstractDatabaseProduct.executeQuery(AbstractDatabaseProduct.java:75)
+	at net.sourceforge.sqlexplorer.sqlpanel.SQLExecution.doExecution(SQLExecution.java:219)
+	at net.sourceforge.sqlexplorer.sqlpanel.AbstractSQLExecution.run(AbstractSQLExecution.java:112)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+09-03 12:53:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "LIST[*] TABLES "; SQL statement:
+list tables [42000-168]
+09-04 16:51:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "PERSON" not found; SQL statement:
+select * from person [42102-168]
+09-04 16:51:23 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "TERMIN" not found; SQL statement:
+select * from termin [42102-168]

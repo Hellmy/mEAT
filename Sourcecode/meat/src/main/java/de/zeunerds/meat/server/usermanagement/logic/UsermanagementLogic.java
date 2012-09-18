@@ -8,12 +8,12 @@ import de.zeunerds.meat.server.exception.FunctionalException;
 import de.zeunerds.meat.server.usermanagement.dao.Account;
 import de.zeunerds.meat.server.usermanagement.dao.UsermanagementService;
 
-public class AccountLogic {
+public class UsermanagementLogic {
 	
 	private Logger mLogger = LoggerFactory.getLogger(this.getClass());
 	private UsermanagementService userService = new UsermanagementService();
 
-	public AccountLogic() {
+	public UsermanagementLogic() {
 		
 	}
 	
@@ -26,5 +26,9 @@ public class AccountLogic {
 	public Account loadAccount(String username) {
 		return userService.loadAccount(username);
 		
+	}
+	
+	public void saveAccount(Account account) {
+		userService.saveAccount(account);
 	}
 }

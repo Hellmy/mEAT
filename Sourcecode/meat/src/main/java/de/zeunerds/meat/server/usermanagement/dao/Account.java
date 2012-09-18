@@ -1,7 +1,13 @@
 package de.zeunerds.meat.server.usermanagement.dao;
 
-public class Account {
+import java.io.Serializable;
 
+public class Account implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3698682971125858974L;
 	private long mPkey;
 	private String mPassword;
 	private String mUsername;

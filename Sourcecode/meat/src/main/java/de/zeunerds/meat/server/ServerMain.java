@@ -9,8 +9,8 @@ import java.rmi.server.UnicastRemoteObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.zeunerds.meat.server.usermanagement.access.AccountAccess;
-import de.zeunerds.meat.server.usermanagement.access.AccountAccessImpl;
+import de.zeunerds.meat.server.usermanagement.access.UsermanagementAccessImpl;
+import de.zeunerds.meat.shared.usermanagement.UsermanagementAccess;
 
 public class ServerMain {
 	
@@ -34,14 +34,15 @@ public class ServerMain {
 	  }
 
 	private void register() throws RemoteException {
-		AccountAccessImpl accountAccess = new AccountAccessImpl();
-	    AccountAccess stub = (AccountAccess) UnicastRemoteObject.exportObject( accountAccess, 0 );
+		// TODO Hier eien Liste übergeben, in der alle Access-Services angemeldet werden
+		UsermanagementAccess accountAccess = new UsermanagementAccessImpl();
+	    UsermanagementAccess stub = (UsermanagementAccess) UnicastRemoteObject.exportObject( accountAccess, 0 );
 	    RemoteServer.setLog( System.out );
 	    
 	    Registry registry = LocateRegistry.getRegistry();
-	    registry.rebind( "AccountAccess", stub );
+	    registry.rebind( UsermanagementAccess.class.getName(), stub );
 	    
-	    mLogger.info( "AccountAccess angemeldet");
+	    mLogger.info( UsermanagementAccess.class.getName() + " angemeldet");
 
 	}
 	  
