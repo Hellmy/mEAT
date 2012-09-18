@@ -1,11 +1,14 @@
 package de.zeunerds.meat.server.usermanagement.logic;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.zeunerds.meat.server.exception.FunctionalException;
 import de.zeunerds.meat.server.usermanagement.dao.Account;
+import de.zeunerds.meat.server.usermanagement.dao.Person;
 import de.zeunerds.meat.server.usermanagement.dao.UsermanagementService;
 
 public class UsermanagementLogic {
@@ -30,5 +33,9 @@ public class UsermanagementLogic {
 	
 	public void saveAccount(Account account) {
 		userService.saveAccount(account);
+	}
+
+	public List<Person> getPersons(String accountUsername) {
+		return userService.getPersons(accountUsername);
 	}
 }

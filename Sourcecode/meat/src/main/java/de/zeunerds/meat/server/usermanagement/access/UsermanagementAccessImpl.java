@@ -66,8 +66,9 @@ public class UsermanagementAccessImpl implements UsermanagementAccess {
 	}
 
 	public List<Person> getPersons(String accountUsername) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO überlegen, ob mit Authentifizierung gearbeitet werden sollte
+		List<Person> listPersonen = mAccountLogic.getPersons(accountUsername);
+		return listPersonen;
 	}
 	
 	public List<Account> searchAccount(String username) {

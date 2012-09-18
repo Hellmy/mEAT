@@ -23,7 +23,6 @@ public class UsermanagementCore extends Observable implements
 	 */
 
 	public Account loadAccount(String username) {
-		Registry registry;
 		Account account = null;
 		try {
 			UsermanagementAccess adder = (UsermanagementAccess) ServerAccess
@@ -48,8 +47,17 @@ public class UsermanagementCore extends Observable implements
 
 	public List<Person> getPersons(String accountUsername)
 			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Person> listPersonen = null;
+		try {
+			UsermanagementAccess adder = (UsermanagementAccess) ServerAccess
+					.getInstance().lookup(UsermanagementAccess.class.getName());
+			listPersonen = adder.getPersons(accountUsername);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listPersonen;
 	}
 
 	public List<Account> searchAccount(String username) throws RemoteException {
