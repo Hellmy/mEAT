@@ -1,10 +1,13 @@
-package de.zeunerds.meat.client.presentation.usermanagement;
+package de.zeunerds.meat.client.usermanagement.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Observable;
 
 import javax.swing.JButton;
@@ -22,9 +25,10 @@ import javax.swing.table.TableColumnModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.zeunerds.meat.client.core.usermanagement.UsermanagementCore;
 import de.zeunerds.meat.client.presentation.AbstractPanel;
+import de.zeunerds.meat.client.usermanagement.core.UsermanagementCore;
 import de.zeunerds.meat.server.usermanagement.dao.Account;
+import de.zeunerds.meat.server.usermanagement.dao.Person;
 
 public class UsermanagementPresentation extends AbstractPanel {
 	
@@ -32,7 +36,7 @@ public class UsermanagementPresentation extends AbstractPanel {
 	
 	private UsermanagementCore mUsermanagementCore;
 	
-	private Account mAccount;
+	private DefaultTableModel mTableModel = new DefaultTableModel();
 
 	/*
 	 * Die Präsentationsschicht registriert sich als Observer beim
@@ -45,11 +49,9 @@ public class UsermanagementPresentation extends AbstractPanel {
 		mUsermanagementCore.addObserver(this);
 		setLayout(new BorderLayout());
 
-		// Create the Useroverview
-		DefaultTableModel tableModel = new DefaultTableModel();
-		tableModel.addColumn("Col1");
+		mTableModel.addColumn("Col1");
 
-		JTable table = new JTable(tableModel);
+		JTable table = new JTable(mTableModel);
 		table.setColumnModel(createColumnModel());
 		table.setAutoCreateRowSorter(true);
 		table.setRowHeight(26);
@@ -57,20 +59,20 @@ public class UsermanagementPresentation extends AbstractPanel {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setIntercellSpacing(new Dimension(0, 0));
 
-		tableModel.addRow(new Object[] { "v1", "v2" });
-		tableModel.addRow(new Object[] { "v1" });
+		mTableModel.addRow(new Object[] { "v1", "v2" });
+		mTableModel.addRow(new Object[] { "v1" });
+		
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setMinimumSize(new Dimension(200, 100));
 
 		// Create Load-Button
-		JButton button = new JButton("Load all Accounts");
+		JButton button = new JButton("Load all Accounts with Persons");
 		button.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				Account account = mUsermanagementCore.loadAccount("test2");
-				mLogger.debug(account.getName());
-				mAccount = account;
+				mUsermanagementCore.loadAccount("testor");
+				mUsermanagementCore.getPersons("testor");
 			}
 		});
 		// Create Change-Button
@@ -79,13 +81,13 @@ public class UsermanagementPresentation extends AbstractPanel {
 			
 			public void actionPerformed(ActionEvent e) {
 
-				mAccount.setName("testtesttest");
-				try {
-					mUsermanagementCore.saveAccount(mAccount);
-				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//				mAccount.setName("testtesttest");
+//				try {
+//					mUsermanagementCore.saveAccount(mAccount);
+//				} catch (RemoteException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 			}
 		});
 		
@@ -117,7 +119,35 @@ public class UsermanagementPresentation extends AbstractPanel {
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		if(arg instanceof Account) {
-			//TODO do something
+			mTableModel.addRow(new Object[] {((Account) arg).getPkey() + " "});
+		}
+		else if(arg instanceof Person) {
+//			mTableModel.addRow(new Object[] {)
+		}
+		else if(o instanceof UsermanagementCore){
+			try {
+				Method meth = UsermanagementCore.class.getMethod((String) arg);
+				List<Person> list = (List<Person>) meth.invoke(o);
+				for(Person p : list) {
+					mTableModel.addRow(new Object[] {p.getName()});
+					mLogger.debug(p.getName());
+				}
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		mLogger.debug("update");
 		

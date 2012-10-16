@@ -1,4 +1,4 @@
-package de.zeunerds.meat.client.core.usermanagement;
+package de.zeunerds.meat.client.usermanagement.core;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -18,9 +18,11 @@ public class UsermanagementCore extends Observable implements
 	/*
 	 * Hier wird die Logik und die Datenhaltung eingebaut Die
 	 * Präsentationsschicht registriert sich als Observer Die Dialogschicht muss
-	 * Observable sein!!!
-	 * Datenhaltung ist wichtig!!! Die Daten müssen von der Präsentationsschicht abgeholt werden
+	 * Observable sein!!! Datenhaltung ist wichtig!!! Die Daten müssen von der
+	 * Präsentationsschicht abgeholt werden
 	 */
+
+	private List<Person> mListPersons;
 
 	public Account loadAccount(String username) {
 		Account account = null;
@@ -35,7 +37,6 @@ public class UsermanagementCore extends Observable implements
 
 		setChanged();
 		notifyObservers(account);
-
 		return account;
 	}
 
@@ -45,19 +46,22 @@ public class UsermanagementCore extends Observable implements
 		return null;
 	}
 
-	public List<Person> getPersons(String accountUsername)
-			throws RemoteException {
-		List<Person> listPersonen = null;
+	public List<Person> getPersons(String accountUsername) {
 		try {
 			UsermanagementAccess adder = (UsermanagementAccess) ServerAccess
 					.getInstance().lookup(UsermanagementAccess.class.getName());
-			listPersonen = adder.getPersons(accountUsername);
+			mListPersons = adder.getPersons(accountUsername);
+			setChanged();
+			notifyObservers("getListPersons");
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return listPersonen;
+		return null;
+	}
+
+	public List<Person> getListPersons() {
+		return mListPersons;
 	}
 
 	public List<Account> searchAccount(String username) throws RemoteException {
@@ -75,7 +79,7 @@ public class UsermanagementCore extends Observable implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

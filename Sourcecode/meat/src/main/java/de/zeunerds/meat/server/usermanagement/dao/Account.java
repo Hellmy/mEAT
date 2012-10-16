@@ -13,6 +13,7 @@ public class Account implements Serializable {
 	private String mUsername;
 	private String mName;
 	private String mFirstname;
+	// TODO hier one-to-many machen!??! dadurch kann man vom Account direkt auf die ganzen Perosnen zugreifen
 
 	public Account() {
 

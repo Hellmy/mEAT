@@ -1,11 +1,17 @@
 package de.zeunerds.meat.server.usermanagement.dao;
 
-public class Person {
+import java.io.Serializable;
 
+public class Person implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1477984149524330829L;
 	private long mPkey;
 	private String mName;
-	private long mAccountMappingFkey;
-	private long mCreatorFkey;
+	private Account mAccountMappingFkey;
+	private Account mCreatorFkey;
 
 	public Person() {
 
@@ -27,19 +33,19 @@ public class Person {
 		this.mName = mName;
 	}
 
-	public long getAccountMappingFkey() {
+	public Account getAccountMappingFkey() {
 		return mAccountMappingFkey;
 	}
 
-	public void setAccountMappingFkey(long mAccountMappingFkey) {
+	public void setAccountMappingFkey(Account mAccountMappingFkey) {
 		this.mAccountMappingFkey = mAccountMappingFkey;
 	}
 
-	public long getCreatorFkey() {
+	public Account getCreatorFkey() {
 		return mCreatorFkey;
 	}
 
-	public void setCreatorFkey(long mCreatorFkey) {
+	public void setCreatorFkey(Account mCreatorFkey) {
 		this.mCreatorFkey = mCreatorFkey;
 	}
 

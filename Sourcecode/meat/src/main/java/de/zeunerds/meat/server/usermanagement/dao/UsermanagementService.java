@@ -156,8 +156,8 @@ public class UsermanagementService {
 			} else {
 				// create and save the new person
 				person = new Person();
-				person.setAccountMappingFkey((Long) null);
-				person.setCreatorFkey(account.getPkey());
+//				person.setAccountMappingFkey((Long) null);
+				person.setCreatorFkey(account);
 				person.setName(name);
 				session.save(person);
 			}
